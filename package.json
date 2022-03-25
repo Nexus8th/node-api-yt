@@ -1,0 +1,14 @@
+{
+  "name": "node-api-yt",
+  "version": "1.0.0",
+  "description": "cours youtube node de zéro // API RESTful",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Julien",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
