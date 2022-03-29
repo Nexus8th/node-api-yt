@@ -1,56 +1,31 @@
 const express = require('express')
 const morgan = require('morgan')
-const bodyParser = require('body-parser')
 const favicon = require('serve-favicon')
-const { success, getUniqueId } = require('./helper')
-let pokemons = require('./mock-pokemon')
+const bodyParser = require('body-parser')
+const sequelize = require('./src/db/sequelize')
 
 const app = express()
 const port = 3000
+
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
 .use(morgan('dev'))
 .use(bodyParser.json())
 
-app.get('/', (req, res) => res.send('Hello, Express !'))
+sequelize.initDb()
 
-app.get('/api/pokemons', (req, res) => {
-    const message = 'La liste des pokémons a bien été récupérée.'
-    res.json(success(message, pokemons))
-})
+// Futurs points de terminaisons.
+require('./src/routes/findAllPokemons')(app)
+require('./src/routes/findPokemonByPk')(app)
+require('./src/routes/createPokemon')(app)
+require('./src/routes/updatePokemon')(app)
+require('./src/routes/deletePokemon')(app)
 
-app.get('/api/pokemons/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    const pokemon = pokemons.find(pokemon => pokemon.id === id)
-    const message = 'Un pokémon a bien été trouvé.'
-    res.json(success(message, pokemon))
-})
-
-app.post('/api/pokemons', (req, res) => {
-    const id = getUniqueId(pokemons)
-    const pokemonCreated = { ...req.body, ...{id: id, created: new Date()}}
-    pokemons.push(pokemonCreated)
-    const message = `Le pokémon ${pokemonCreated.name} a bien été crée.`
-    res.json(success(message, pokemonCreated))
-})
-
-app.put('/api/pokemons/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    const pokemonUpdated = { ...req.body, id: id }
-    pokemons = pokemons.map(pokemon => {
-        return pokemon.id === id ? pokemonUpdated : pokemon
-    }) 
-    const message = `Le pokémon ${pokemonUpdated.name} a bien été modifié.`
-    res.json(success(message, pokemonUpdated))
-})
-
-app.delete('/api/pokemons/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    const pokemonDeleted = pokemons.at(pokemon => pokemon.id === id)
-    pokemons.filter(pokemon => pokemon.id !== id)
-    const message = `Le pokémon ${pokemonDeleted.name} a bien été supprimé`
-    res.json(success(message, pokemonDeleted))
+// GEstion des erreurs
+app.use(({res}) => {
+    const message = `Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.`
+    res.status(404).json({message})
 })
 
 app.listen(port, () => console.log(`Notre application Node est démarée sur : http://localhost:${port}`))
