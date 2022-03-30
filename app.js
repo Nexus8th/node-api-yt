@@ -13,7 +13,7 @@ app
 
 sequelize.initDb()
 
-app.get('./', (req, res) => {
+app.get('/', (req, res) => {
     res.json('Hello, Heroku')
 })
 
