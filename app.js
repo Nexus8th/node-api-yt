@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const sequelize = require('./src/db/sequelize')
 
 const app = express()
-const port = process.env.PORT || 3000
+/* const port = process.env.PORT || 3000 */
 
 
 app
@@ -31,4 +31,7 @@ app.use(({res}) => {
     res.status(404).json({message})
 })
 
-app.listen(port, () => console.log(`Notre application Node est démarée sur : http://localhost:${port}`))
+/* app.listen(port, () => console.log(`Notre application Node est démarée sur : http://localhost:${port}`)) */
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
