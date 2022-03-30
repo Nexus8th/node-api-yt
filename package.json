@@ -4,7 +4,8 @@
   "description": "cours youtube node de zéro // API RESTful",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production node app.js",
+    "dev": "NODE_ENV=development nodemon app.js"
   },
   "author": "Julien",
   "license": "ISC",
@@ -12,12 +13,12 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "mariadb": "^3.0.0",
     "sequelize": "^6.17.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   }
 }
