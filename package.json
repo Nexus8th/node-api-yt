@@ -2,10 +2,13 @@
   "name":"node-api-yt",
   "version":"1.0.0",
   "description":"cours youtube node de zéro // API RESTful",
+  "engines":{
+    "node":"17.7.1"
+  },
   "main":"app.js",
   "scripts":{
-    "start":"NODE_ENV=production node app.js",
-    "dev":"NODE_ENV=development nodemon app.js"
+    "start":"node app.js",
+    "dev":"nodemon app.js"
   },
   "author":"Julien",
   "license":"ISC",
@@ -20,8 +23,5 @@
   },
   "devDependencies":{
     "nodemon":"^2.0.15"
-  },
-  "engines":{
-    "node":"17.7.1"
   }
 }
