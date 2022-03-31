@@ -3,7 +3,7 @@
   "version":"1.0.0",
   "description":"cours youtube node de zéro // API RESTful",
   "engines":{
-    "node":"17.7.1",
+    "node":"14.x",
     "npm":"8.5.4"
   },
   "main":"app.js",
